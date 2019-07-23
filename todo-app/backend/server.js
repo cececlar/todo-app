@@ -11,6 +11,12 @@ let Todo = require('./todo.model');
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use('/todos', todoRoutes);
+
+app.listen(PORT, function() {
+    console.log("Server is running on Port: " + PORT);
+});
+
 mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
@@ -63,10 +69,4 @@ todoRoutes.route('/add').post(function(req, res) {
         .catch(err => {
             res.status(400).send('adding new todo failed');
         });
-});
-
-app.use('/todos', todoRoutes);
-
-app.listen(PORT, function() {
-    console.log("Server is running on Port: " + PORT);
 });
